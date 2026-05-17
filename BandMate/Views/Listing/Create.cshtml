@@ -1,0 +1,32 @@
+﻿@model BandMate.Models.Listing
+
+<div class="container mt-4">
+    <h4>Yeni İlan Oluştur</h4>
+    <hr />
+    <form asp-action="Create">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">İlan Türü</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+
+                <label class="form-label mt-2">Başlık</label>
+                <input asp-for="Title" class="form-control" placeholder="Örn: Fender Stratocaster Satılık" />
+
+                <label class="form-label mt-2">Enstrüman</label>
+                <input asp-for="Instrument" class="form-control" placeholder="Örn: Gitar" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Şehir</label>
+                <input asp-for="City" class="form-control" />
+
+                <label class="form-label mt-2">Fiyat (Opsiyonel)</label>
+                <input asp-for="Price" type="number" class="form-control" placeholder="Grup ilanları için boş bırakın" />
+            </div>
+            <div class="col-md-12 mt-2">
+                <label class="form-label">Açıklama</label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">İlanı Yayınla</button>
+    </form>
+</div>

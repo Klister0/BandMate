@@ -1,0 +1,88 @@
+﻿@model BandMate.Models.Listing
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "İlan Detayı";
+}
+
+<div class="container mt-4 text-white">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success bg-success text-white border-0 rounded-pill mb-4">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Listing" asp-action="Index" class="text-primary text-decoration-none">İlanlar</a></li>
+                    <li class="breadcrumb-item active text-white-50" aria-current="page">@Model.Category?.Name</li>
+                </ol>
+            </nav>
+
+            <h1 class="display-5 fw-bold text-white mb-3">@Model.Title</h1>
+            <p class="text-white-50">
+                <span class="me-3"><i class="bi bi-geo-alt text-primary me-1"></i> <b>Şehir:</b> @Model.City</span>
+                <span><i class="bi bi-calendar-event text-primary me-1"></i> <b>Tarih:</b> @Model.CreatedAt.ToShortDateString()</span>
+            </p>
+            <hr class="border-secondary my-4" />
+
+            <h4 class="text-primary mb-3"><i class="bi bi-file-text me-1"></i> Açıklama</h4>
+            <p style="white-space: pre-line;" class="lead text-white-50 mb-4">@Model.Description</p>
+
+            <div class="mt-4 p-4 bg-dark border border-secondary rounded-4 shadow">
+                <h5 class="text-primary mb-3"><i class="bi bi-info-circle me-1"></i> İlan Detayları</h5>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><strong>Enstrüman:</strong> <span class="text-white-50">@Model.Instrument</span></li>
+                    <li class="mb-2"><strong>Fiyat:</strong> <span class="text-warning fw-bold fs-5">@(Model.Price.HasValue? Model.Price.Value.ToString("C") : "Görüşülür")</span></li>
+                    <li><strong>İlan Sahibi:</strong> <span class="text-white-50">@Model.User?.FullName</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            @if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.FindFirstValue("UserId");
+                if (currentUserId != Model.UserId.ToString())
+                {
+                    <div class="card bg-dark border border-primary rounded-4 shadow">
+                        <div class="card-body p-4">
+                            <h5 class="card-title text-primary mb-3">İlan Sahibine Yanıt Ver</h5>
+                            <form asp-controller="Listing" asp-action="SubmitApplication" method="post">
+                                <input type="hidden" name="listingId" value="@Model.Id" />
+                                <div class="mb-3">
+                                    <label class="form-label text-white-50">Mesajınız</label>
+                                    <textarea name="message" class="form-control bg-black text-white border-secondary" rows="4" placeholder="Merhaba, ilanınızla ilgileniyorum..." required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label text-white-50">İletişim Bilgileriniz</label>
+                                    <input type="text" name="contactInfo" class="form-control bg-black text-white border-secondary" placeholder="Telefon veya Sosyal Medya" required />
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 fw-bold rounded-pill">Gönder</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info bg-dark text-info border border-info rounded-4">
+                        <i class="bi bi-info-circle-fill me-2"></i> Bu sizin kendi ilanınız. Gelen başvuruları <b>Panelim</b> sayfasından görebilirsiniz.
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="card bg-dark border border-warning rounded-4 shadow text-center">
+                    <div class="card-body p-4">
+                        <i class="bi bi-lock text-warning display-4 mb-2"></i>
+                        <p class="card-text text-white-50">İlan sahibine ulaşmak ve mesaj göndermek için giriş yapmalısınız.</p>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-warning w-100 fw-bold rounded-pill">Giriş Yap</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿@model BandMate.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Paneli";
+}
+
+<div class="container mt-4 text-white">
+    <h2 class="text-white fw-bold">Kullanıcı Paneli</h2>
+    <p class="text-white-50">İlanlarınızı ve size gelen mesajları buradan yönetebilirsiniz.</p>
+    <hr class="border-secondary mb-4" />
+
+    <div class="row">
+        <div class="col-md-7">
+            <h4 class="mb-3 text-primary"><i class="bi bi-list-stars me-2"></i>Açtığım İlanlar</h4>
+            @if (!Model.MyListings.Any())
+            {
+                <div class="alert alert-info bg-dark text-info border-info rounded-4">Henüz hiç ilan açmadınız.</div>
+            }
+            else
+            {
+                <div class="table-responsive rounded-4 shadow border border-secondary">
+                    <table class="table table-dark table-hover align-middle mb-0">
+                        <thead class="table-secondary text-dark fw-bold">
+                            <tr>
+                                <th>Başlık</th>
+                                <th>Kategori</th>
+                                <th>Durum</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var listing in Model.MyListings)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-controller="Listing" asp-action="Details" asp-route-id="@listing.Id" class="text-primary fw-bold text-decoration-none">
+                                            @listing.Title
+                                        </a>
+                                    </td>
+                                    <td class="text-white-50 small">@listing.Category?.Name</td>
+                                    <td>
+                                        <span class="badge @(listing.IsActive ? "bg-success" : "bg-secondary text-dark") rounded-pill">
+                                            @(listing.IsActive ? "Aktif" : "Pasif")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form asp-action="ToggleStatus" asp-route-id="@listing.Id" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-sm @(listing.IsActive ? "btn-outline-danger" : "btn-outline-success") rounded-pill px-3 fw-bold">
+                                                @(listing.IsActive ? "Kapat" : "Aç")
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-5">
+            <h4 class="mb-3 text-primary"><i class="bi bi-envelope-paper me-2"></i>Gelen Başvurular ve Mesajlar</h4>
+            @if (!Model.ReceivedApplications.Any())
+            {
+                <div class="alert alert-dark bg-dark text-white-50 border-secondary rounded-4">İlanlarınıza henüz bir yanıt gelmedi.</div>
+            }
+            else
+            {
+                @foreach (var app in Model.ReceivedApplications)
+                {
+                    <div class="card mb-3 bg-dark border border-secondary rounded-4 shadow-sm">
+                        <div class="card-body p-4">
+                            <h6 class="text-primary mb-2 fw-bold">
+                                İlan: <a asp-controller="Listing" asp-action="Details" asp-route-id="@app.ListingId" class="text-white text-decoration-none hover-underline">@app.Listing?.Title</a>
+                            </h6>
+                            <div class="text-white-50 small mb-3">
+                                <i class="bi bi-person me-1"></i>Gönderen: <b class="text-white">@app.User?.FullName</b>
+                                <span class="mx-2">|</span>
+                                <i class="bi bi-calendar3 me-1"></i>@app.CreatedAt.ToShortDateString()
+                            </div>
+
+                            <p class="card-text bg-black text-white-50 p-3 rounded-3 small border border-secondary" style="white-space: pre-line; min-height: 80px;">
+                                "@app.Message"
+                            </p>
+
+                            <div class="text-end mt-3">
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold shadow-sm">
+                                    <i class="bi bi-telephone-fill me-1"></i>İletişim: @app.ContactInfo
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

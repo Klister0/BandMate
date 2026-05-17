@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Admin Paneli";
+}
+
+<div class="container mt-4">
+    <div class="p-5 mb-4 bg-light rounded-3 border-left-danger">
+        <div class="container-fluid py-2">
+            <h1 class="display-5 fw-bold text-danger">Admin Yönetim Paneli</h1>
+            <p class="col-md-8 fs-4 text-muted">Platformun genel durumunu inceleyebilir ve ilanları modere edebilirsiniz.</p>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-3">
+            <div class="card bg-dark text-white shadow">
+                <div class="card-body py-4">
+                    <h5 class="card-title text-uppercase">Toplam Üye</h5>
+                    <p class="display-4 fw-bold">@ViewBag.UserCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body py-4">
+                    <h5 class="card-title text-uppercase">Toplam İlan</h5>
+                    <p class="display-4 fw-bold">@ViewBag.ListingCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-info text-dark shadow">
+                <div class="card-body py-4">
+                    <h5 class="card-title text-uppercase">Kategori Sayısı</h5>
+                    <p class="display-4 fw-bold">@ViewBag.CategoryCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 p-4 border rounded bg-white shadow-sm d-flex justify-content-between align-items-center">
+        <div>
+            <h5>İlan Moderasyonu</h5>
+            <p class="text-muted mb-0">Sistemdeki tüm aktif ve pasif ilanları listeyebilir, uygunsuz olanları silebilirsiniz.</p>
+        </div>
+        <a asp-action="ManageListings" class="btn btn-danger btn-lg">Tüm İlanları Yönet</a>
+    </div>
+</div>

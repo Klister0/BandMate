@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="container mt-5 text-white">
+    <div class="p-5 mb-5 rounded-4 shadow border border-secondary text-center" style="background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);">
+        <div class="py-4">
+            <h1 class="display-4 fw-bold text-primary mb-3">
+                <i class="bi bi-music-note-list me-2"></i>Müziğin Ritmini Birlikte Yakalayın!
+            </h1>
+            <p class="col-md-8 mx-auto fs-5 text-white-50 mb-4">
+                BandMate ile grubunuza yeni bir yetenek bulun, müzik dersi ilanları açın ya da ikinci el enstrümanlarınızı kolayca listeleyin. Müzisyenlerin buluşma noktasına hoş geldiniz!
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-controller="Listing" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-4 me-sm-3 fw-bold shadow">
+                    <i class="bi bi-eye me-2"></i>İlanları İncele
+                </a>
+                <a asp-controller="Listing" asp-action="Create" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-bold">
+                    <i class="bi bi-plus-circle me-2"></i>İlan Yayınla
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-secondary rounded-4 p-3 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary mb-3">
+                        <i class="bi bi-people-fill display-5"></i>
+                    </div>
+                    <h4 class="card-title fw-bold text-white">Grup Arkadaşı Bul</h4>
+                    <p class="card-text text-white-50 small">Grubunuz için eksik olan enstrümandaki müzisyeni bulun ya da kurulmuş bir gruba dahil olun.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-secondary rounded-4 p-3 shadow-sm">
+                <div class="card-body">
+                    <div class="text-warning mb-3">
+                        <i class="bi bi-book display-5"></i>
+                    </div>
+                    <h4 class="card-title fw-bold text-white">Ders Al / Ver</h4>
+                    <p class="card-text text-white-50 small">Yeteneklerinizi diğer müzisyenlerle paylaşarak gelir elde edin ya da kendinizi geliştirecek ilanlara göz atın.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-secondary rounded-4 p-3 shadow-sm">
+                <div class="card-body">
+                    <div class="text-success mb-3">
+                        <i class="bi bi-guitar display-5"></i>
+                    </div>
+                    <h4 class="card-title fw-bold text-white">Ekipman Al / Sat</h4>
+                    <p class="card-text text-white-50 small">İhtiyacınız olmayan enstrüman veya stüdyo ekipmanlarını güvenle listeleyin, aradığınız ekipmana kolayca ulaşın.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

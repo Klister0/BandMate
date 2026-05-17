@@ -1,0 +1,11 @@
+﻿@model BandMate.Models.User
+<div class="container mt-5">
+    <h2>Müzisyenler Dünyasına Katıl</h2>
+    <form asp-action="Register" method="post">
+        <input type="text" asp-for="FullName" class="form-control mb-2" placeholder="Ad Soyad" required />
+        <input type="email" asp-for="Email" class="form-control mb-2" placeholder="E-posta" required />
+        <input type="password" asp-for="PasswordHash" class="form-control mb-2" placeholder="Şifre" required />
+        <input type="text" asp-for="City" class="form-control mb-2" placeholder="Yaşadığın Şehir" required />
+        <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+    </form>
+</div>

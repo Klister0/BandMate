@@ -1,0 +1,12 @@
+﻿<div class="container mt-5">
+    <h2>Giriş Yap</h2>
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+    <form asp-action="Login" method="post">
+        <input type="email" name="email" class="form-control mb-2" placeholder="E-posta" required />
+        <input type="password" name="password" class="form-control mb-2" placeholder="Şifre" required />
+        <button type="submit" class="btn btn-success">Giriş Yap</button>
+    </form>
+</div>
